@@ -45,10 +45,10 @@ def offsetting(images, offsets, order=1):
                  e.g. images = [some_array], not images = some_array.
 
         offsets = A tuple of lists documenting the correct offset for each
-        		  image. These must be in (x,y) form
+                  image. These must be in (x,y) form
 
         integer = Input to determine whether integer or non-integers offsets
-        		  are used. If False, then bilinear interpolation is used.
+                  are used. If False, then bilinear interpolation is used.
                   Non-integer offsets are set as default.
         order   = Order of the spline interpolation.
                   0=nearest ; 1=bilinear ; 2=quadratic ; 3=cubic
@@ -110,11 +110,11 @@ def offsetting(images, offsets, order=1):
         y_pos = iround(numpy.fabs(min(Y_offsets)))
 
     ##################################################################################
-    #SV: force the size to be a certain value- useful for my bootstrapping code!
-    force_size=[96, 49]
-    if force_size is not None:
-        X_dimension=force_size[0]
-        Y_dimension=force_size[1]
+    #SPV: force the size to be a certain value- useful for my bootstrapping code!
+    #force_size=[71, 122]
+    #if force_size is not None:
+    #    X_dimension=force_size[0]
+    #    Y_dimension=force_size[1]
     #pdb.set_trace()
     ##################################################################################
 
@@ -393,6 +393,9 @@ def image_combine(image_list, offsets=[], bpm_threshold=0.0, bpm_list=[], order=
 #            bpm_list[nans_be_here]=1.0
 #        bpm_list=list(bpm_list)
 
+
+
+
     # Perform pairwise background subtraction if necessary.
     if background:
         bkgrnd = []
@@ -485,8 +488,7 @@ if __name__ == '__main__':
 
     start_time = time.time()
 
-    print "SV 8/7/16: I've forced the cubes to be the same size as the Telluric of NGC1277. CHANGE THIS AFTER BOOTSTRAPPING!!!"
-
+    
     if(len(sys.argv) == 4): # RH : dislike this way if reading in - limited to 25 characters. 2016 SV- not if you use dtype="str" rather than dtype="S25". Also should really use argparse not sysargv!
         files = pl.loadtxt(sys.argv[1],comments="#",dtype=str)
         offx,offy = pl.loadtxt(sys.argv[2],comments="#", unpack=True)
@@ -581,7 +583,7 @@ if __name__ == '__main__':
         hdu2 = pf.PrimaryHDU(aim[1])#, bpheader_template)
         hdulist2 = pf.HDUList([hdu2])
         # RH: fix some very odd 'features' of pyfits, so that the output BPM/quality file is readable
-        hdulist2[0].scale(type='int32')
+        #hdulist2[0].scale(type='int32')
         #hdulist2[0].header['EXTEND']=
         hdulist2[0].update_header()
         hdulist2.writeto(bpmfilename, clobber=True)
